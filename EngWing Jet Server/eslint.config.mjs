@@ -1,20 +1,21 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
-import json from '@eslint/json'
-import pluginJs from '@eslint/js'
-import { defineConfig } from 'eslint/config'
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import json from '@eslint/json';
+import prettier from 'eslint-plugin-prettier';
 
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    plugins: { js },
-    extends: ['js/recommended'],
     languageOptions: { globals: globals.browser },
-  },
-  {
+    plugins: { prettier },
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      prettier.configs.recommended, // 👈 runs last, disables conflicts
+    ],
     rules: {
       eqeqeq: 'off',
       'no-unused-vars': 'error',
@@ -25,16 +26,12 @@ export default defineConfig([
     },
   },
   {
-    ignores: ['.node_modules/*'],
-  },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  eslintPluginPrettierRecommended,
-
-  {
     files: ['**/*.json'],
     plugins: { json },
     language: 'json/json',
     extends: ['json/recommended'],
   },
-])
+  {
+    ignores: ['node_modules/*'],
+  },
+]);
