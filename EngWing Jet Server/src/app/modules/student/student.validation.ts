@@ -36,14 +36,11 @@ export const studentValidationSchema = z.object({
 
   presentAddress: z.string().nonempty('Present Address is required'),
 
-  profileImage: z.string().optional(),
+  profileImage: z.url().optional(),
 
   academicLevel: z.string().nonempty('Please specify your Academic Level'),
 
   isDeleted: z.boolean().default(false),
-
-  createdAt: z.string(),
-  updatedAt: z.string(),
 });
 
 export default studentValidationSchema;

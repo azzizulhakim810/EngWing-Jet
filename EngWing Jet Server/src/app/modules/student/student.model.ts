@@ -1,21 +1,26 @@
-import { model, Schema } from 'mongoose'
-import { TName, TStudent } from './student.interface'
+import { model, Schema } from 'mongoose';
+import { TName, TStudent } from './student.interface';
 
-const nameSchema = new Schema<TName>({
-  firstName: {
-    type: String,
-    required: [true, 'First Name is required'],
-    trim: true,
+const nameSchema = new Schema<TName>(
+  {
+    firstName: {
+      type: String,
+      required: [true, 'First Name is required'],
+      trim: true,
+    },
+    middleName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+      required: [true, 'First Name is required'],
+      trim: true,
+    },
   },
-  middleName: {
-    type: String,
+  {
+    _id: false,
   },
-  lastName: {
-    type: String,
-    required: [true, 'First Name is required'],
-    trim: true,
-  },
-})
+);
 
 const studentSchema = new Schema<TStudent>(
   {
@@ -70,6 +75,6 @@ const studentSchema = new Schema<TStudent>(
     },
   },
   { timestamps: true },
-)
+);
 
-export const Student = model<TStudent>('Student', studentSchema)
+export const Student = model<TStudent>('Student', studentSchema);
