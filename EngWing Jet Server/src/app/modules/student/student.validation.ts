@@ -1,9 +1,9 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const nameValidationSchema = z.object({
   firstName: z
     .string()
-    .max(10, 'First Name cant be more than 10')
+    .max(20, 'First Name cant be more than 10')
     .trim()
     .nonempty('First Name is required'),
   middleName: z.string().optional(),
@@ -13,7 +13,7 @@ export const nameValidationSchema = z.object({
     .trim()
     .nonempty('Last Name is required')
     .regex(/^[A-Za-z]+$/, { message: 'Last Name must contain only letters' }),
-})
+});
 
 export const studentValidationSchema = z.object({
   id: z.string().nonempty('Student ID is required'),
@@ -41,6 +41,9 @@ export const studentValidationSchema = z.object({
   academicLevel: z.string().nonempty('Please specify your Academic Level'),
 
   isDeleted: z.boolean().default(false),
-})
 
-export default studentValidationSchema
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export default studentValidationSchema;

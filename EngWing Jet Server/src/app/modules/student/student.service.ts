@@ -1,4 +1,11 @@
+import { TStudent } from './student.interface';
 import { Student } from './student.model';
+
+const createStudentIntoDB = async (studentData: TStudent) => {
+  // built-in static method Class.method()
+  const result = Student.create(studentData);
+  return result;
+};
 
 const getAllStudentsFromDB = async () => {
   const result = await Student.find();
@@ -6,5 +13,6 @@ const getAllStudentsFromDB = async () => {
 };
 
 export const StudentServices = {
+  createStudentIntoDB,
   getAllStudentsFromDB,
 };
