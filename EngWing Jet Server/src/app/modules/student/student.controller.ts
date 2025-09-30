@@ -61,8 +61,32 @@ const getSingleStudent = async (req: Request, res: Response) => {
   }
 };
 
+const updateSingleStudent = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { updatedDoc } = req.body;
+    const result = await StudentServices.updateSingleStudentFromDB(
+      id,
+      updatedDoc,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'A student is updated succesfully',
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Something went wrong',
+      error: error,
+    });
+  }
+};
+
 export const StudentControllers = {
   createStudent,
   getAllStudents,
   getSingleStudent,
+  updateSingleStudent,
 };
