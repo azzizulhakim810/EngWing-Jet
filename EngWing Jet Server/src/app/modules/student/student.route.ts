@@ -7,8 +7,10 @@ router.get('/', StudentControllers.getAllStudents);
 
 router.get('/:id', StudentControllers.getSingleStudent);
 
+router.post('/create-student', StudentControllers.createStudent);
+
 router.patch('/:id', StudentControllers.updateSingleStudent);
 
-router.post('/create-student', StudentControllers.createStudent);
+router.delete('/:id', StudentControllers.deleteSingleStudent);
 
 export const StudentRoutes = router;

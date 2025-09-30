@@ -32,6 +32,7 @@ const getSingleStudentFromDB = async (id: number | string) => {
   return result;
 };
 
+// Update a single student ----- Using aggregation([])
 const updateSingleStudentFromDB = async (
   id: number | string,
   updatedDoc: string,
@@ -41,7 +42,20 @@ const updateSingleStudentFromDB = async (
       $match: { id: id },
     },
     {
-      $set: { isDeleted: updatedDoc },
+      $set: { academicLevel: updatedDoc },
+    },
+  ]);
+  return result;
+};
+
+// Soft Delete(update deleted true) a single student
+const deleteSingleStudentFromDB = async (id: number | string) => {
+  const result = await Student.aggregate([
+    {
+      $match: { id: id },
+    },
+    {
+      $set: { isDeleted: true },
     },
   ]);
   return result;
@@ -52,4 +66,5 @@ export const StudentServices = {
   getAllStudentsFromDB,
   getSingleStudentFromDB,
   updateSingleStudentFromDB,
+  deleteSingleStudentFromDB,
 };
