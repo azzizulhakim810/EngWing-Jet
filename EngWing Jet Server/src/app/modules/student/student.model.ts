@@ -146,14 +146,14 @@ studentSchema.set('toObject', {
   },
 });
 
-// Using the static method
+//////////////// Using the static method ///////////////////////
 studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await Student.findOne({ id });
 
   return existingUser;
 };
 
-// Using the instance method
+//////////////// Using the instance method /////////////////////
 // studentSchema.methods.isUserExists = async function (id: string) {
 //   const existingUser = await Student.findOne({ id });
 

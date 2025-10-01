@@ -1,0 +1,42 @@
+import { model, Schema } from 'mongoose';
+import { TUser } from './user.interface';
+
+const userSchema = new Schema<TUser>(
+  {
+    id: {
+      type: String,
+      required: [true, 'ID is required'],
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: [true, 'Password is required'],
+    },
+    needsPasswordChange: {
+      type: Boolean,
+      required: [true, 'Password is required'],
+      default: true,
+    },
+    role: {
+      type: String,
+      enum: {
+        values: ['student', 'mentor', 'admin'],
+        message: 'Please select one of them',
+      },
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ['in-progress', 'blocked'],
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+export const User = model<TUser>('User', userSchema);
