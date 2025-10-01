@@ -20,6 +20,14 @@ export const studentValidationSchema = z.object({
 
   name: nameValidationSchema,
 
+  password: z
+    .string()
+    .regex(
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+      'Minimum eight characters, at least one letter and one number',
+    )
+    .nonempty('Password is required'),
+
   gender: z.enum(['male', 'female', 'other'], {
     error: 'Gender can be male | female | other',
   }),

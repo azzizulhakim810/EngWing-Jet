@@ -34,6 +34,10 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: [true, 'Id is required'],
       unique: true,
     },
+    password: {
+      type: String,
+      required: [true, 'Password is required'],
+    },
     name: {
       type: nameSchema,
       required: [true, 'Name is required'],
@@ -81,6 +85,28 @@ const studentSchema = new Schema<TStudent, StudentModel>(
   },
   { timestamps: true },
 );
+
+// Using Query Middleware
+studentSchema.pre('find', function (next) {
+  // Query before find operation
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+// Query before findOne operation
+studentSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+// Query before aggregation operation
+studentSchema.pre('aggregate', function (next) {
+  // Query on find operation
+  this.pipeline().unshift({
+    $match: { isDeleted: { $ne: true } },
+  });
+  next();
+});
 
 // Using the static method
 studentSchema.statics.isUserExists = async function (id: string) {

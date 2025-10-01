@@ -9,6 +9,7 @@ export type TName = {
 export type TStudent = {
   id: string;
   name: TName;
+  password: string;
   gender: 'male' | 'female' | 'other';
   dateOfBirth?: string;
   email: string;
