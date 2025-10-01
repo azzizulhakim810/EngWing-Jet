@@ -1,5 +1,10 @@
-import { model, Schema } from 'mongoose';
-import { TName, TStudent } from './student.interface';
+import { Model, model, Schema } from 'mongoose';
+import {
+  // StudentMethods,
+  StudentModel,
+  TName,
+  TStudent,
+} from './student.interface';
 
 const nameSchema = new Schema<TName>(
   {
@@ -22,7 +27,7 @@ const nameSchema = new Schema<TName>(
   },
 );
 
-const studentSchema = new Schema<TStudent>(
+const studentSchema = new Schema<TStudent, StudentModel>(
   {
     id: {
       type: String,
@@ -77,4 +82,18 @@ const studentSchema = new Schema<TStudent>(
   { timestamps: true },
 );
 
-export const Student = model<TStudent>('Student', studentSchema);
+// Using the static method
+studentSchema.statics.isUserExists = async function (id: string) {
+  const existingUser = await Student.findOne({ id });
+
+  return existingUser;
+};
+
+// Using the instance method
+// studentSchema.methods.isUserExists = async function (id: string) {
+//   const existingUser = await Student.findOne({ id });
+
+//   return existingUser;
+// };
+
+export const Student = model<TStudent, StudentModel>('Student', studentSchema);
