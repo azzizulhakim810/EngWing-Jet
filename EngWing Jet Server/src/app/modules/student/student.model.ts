@@ -5,6 +5,8 @@ import {
   TName,
   TStudent,
 } from './student.interface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 const nameSchema = new Schema<TName>(
   {
@@ -86,7 +88,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
   { timestamps: true },
 );
 
-// Using Query Middleware
+///////////////// Using Query Middleware ///////////////////
 studentSchema.pre('find', function (next) {
   // Query before find operation
   this.find({ isDeleted: { $ne: true } });
@@ -105,6 +107,18 @@ studentSchema.pre('aggregate', function (next) {
   this.pipeline().unshift({
     $match: { isDeleted: { $ne: true } },
   });
+  next();
+});
+
+///////////////// Using Document Middleware ///////////////////
+studentSchema.pre('save', async function (next) {
+  const user = this;
+
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+
   next();
 });
 
