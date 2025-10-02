@@ -1,9 +1,13 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { User } from './user.model';
 import { UserValidations, userValidationSchema } from './user.validation';
 import { UserServices } from './user.service';
 
-const createStudent = async (req: Request, res: Response) => {
+const createStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { password, student } = req.body;
 
@@ -18,12 +22,8 @@ const createStudent = async (req: Request, res: Response) => {
       message: 'An user is created successfully',
       data: result,
     });
-  } catch (error: any) {
-    res.status(200).json({
-      success: false,
-      message: error.message || 'Something went wrong',
-      data: error,
-    });
+  } catch (error) {
+    next(error);
   }
 };
 
