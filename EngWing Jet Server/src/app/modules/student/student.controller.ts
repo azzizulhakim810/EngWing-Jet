@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { StudentServices } from './student.service';
 import studentValidationSchema from './student.validation';
+import sendResponse from '../../utils/sendResponse';
+import status from 'http-status';
 
 /* const createStudent = async (req: Request, res: Response) => {
   try {
@@ -33,7 +35,8 @@ const getAllStudents = async (
   try {
     const result = await StudentServices.getAllStudentsFromDB();
 
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
       message: 'Students are retrieved succesfully',
       data: result,
@@ -52,7 +55,8 @@ const getSingleStudent = async (
     const { id } = req.params;
     const result = await StudentServices.getSingleStudentFromDB(id);
 
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
       message: 'A student is retrieved succesfully',
       data: result,
@@ -75,7 +79,8 @@ const updateSingleStudent = async (
       updatedDoc,
     );
 
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
       message: 'A student is updated succesfully',
       data: result,
@@ -94,7 +99,8 @@ const deleteSingleStudent = async (
     const { id } = req.params;
     const result = await StudentServices.deleteSingleStudentFromDB(id);
 
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
       message: 'A student is deleted succesfully',
       data: result,
