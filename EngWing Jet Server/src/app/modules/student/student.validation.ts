@@ -15,7 +15,7 @@ export const nameValidationSchema = z.object({
     .regex(/^[A-Za-z]+$/, { message: 'Last Name must contain only letters' }),
 });
 
-export const studentValidationSchema = z.object({
+export const createStudentValidationSchema = z.object({
   body: z.object({
     password: z
       .string()
@@ -51,5 +51,5 @@ export const studentValidationSchema = z.object({
 });
 
 export const studentValidations = {
-  studentValidationSchema,
+  createStudentValidationSchema,
 };

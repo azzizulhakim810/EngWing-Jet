@@ -1,28 +1,13 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
+import { createStudentValidationSchema } from '../student/student.validation';
 import { UserControllers } from './user.controller';
-import { ZodObject, ZodRawShape } from 'zod';
-import { studentValidationSchema } from '../student/student.validation';
 
 const router = express.Router();
 
-const validateRequest = (schema: ZodObject<ZodRawShape>) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      // Validation
-      await schema.parseAsync({
-        body: req.body,
-      });
-
-      next();
-    } catch (error) {
-      next(error);
-    }
-  };
-};
-
 router.post(
   '/create-student',
-  validateRequest(studentValidationSchema),
+  validateRequest(createStudentValidationSchema),
   UserControllers.createStudent,
 );
 
