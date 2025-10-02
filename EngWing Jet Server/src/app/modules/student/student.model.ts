@@ -5,8 +5,6 @@ import {
   TName,
   TStudent,
 } from './student.interface';
-import bcrypt from 'bcrypt';
-import config from '../../config';
 
 const nameSchema = new Schema<TName>(
   {
@@ -40,12 +38,9 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       type: Schema.Types.ObjectId,
       required: [true, 'User ID is required'],
       unique: true,
-      ref: 'User',
+      ref: 'User', // Create the reference
     },
-    password: {
-      type: String,
-      required: [true, 'Password is required'],
-    },
+
     name: {
       type: nameSchema,
       required: [true, 'Name is required'],
@@ -114,42 +109,6 @@ studentSchema.pre('aggregate', function (next) {
     $match: { isDeleted: { $ne: true } },
   });
   next();
-});
-
-///////////////// Using Document Middleware ///////////////////
-// Using Document Middleware Pre & Post <While Saving or Removing Any Document>
-studentSchema.pre('save', async function () {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
-
-  // Hashing the password
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds),
-  );
-  console.log(this, 'Before saving the Data');
-});
-
-// Removing the password from response
-studentSchema.post('save', function (doc, next) {
-  doc.password = '';
-
-  next();
-});
-
-// Better ways to strip the password so that it wouldn't be leaked in any api calls <find, findOne, aggregation, delete, update etc>
-studentSchema.set('toJSON', {
-  transform: function (doc, ret: any) {
-    delete ret.password; // remove the pass from JSON output
-    return ret;
-  },
-});
-
-studentSchema.set('toObject', {
-  transform: function (doc, ret: any) {
-    delete ret.password; // remove the pass from Object output
-    return ret;
-  },
 });
 
 //////////////// Using the static method ///////////////////////
