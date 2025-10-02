@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { StudentServices } from './student.service';
 import studentValidationSchema from './student.validation';
 
-const createStudent = async (req: Request, res: Response) => {
+/* const createStudent = async (req: Request, res: Response) => {
   try {
     const student = req.body;
 
@@ -23,7 +23,7 @@ const createStudent = async (req: Request, res: Response) => {
       error: error,
     });
   }
-};
+}; */
 const getAllStudents = async (req: Request, res: Response) => {
   try {
     const result = await StudentServices.getAllStudentsFromDB();
@@ -104,7 +104,6 @@ const deleteSingleStudent = async (req: Request, res: Response) => {
 };
 
 export const StudentControllers = {
-  createStudent,
   getAllStudents,
   getSingleStudent,
   updateSingleStudent,

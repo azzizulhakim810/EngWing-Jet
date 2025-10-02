@@ -7,8 +7,6 @@ router.get('/', StudentControllers.getAllStudents);
 
 router.get('/:id', StudentControllers.getSingleStudent);
 
-router.post('/create-student', StudentControllers.createStudent);
-
 router.patch('/:id', StudentControllers.updateSingleStudent);
 
 router.delete('/:id', StudentControllers.deleteSingleStudent);

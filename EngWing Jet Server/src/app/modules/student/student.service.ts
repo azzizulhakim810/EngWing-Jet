@@ -2,31 +2,6 @@ import { Error } from 'mongoose';
 import { TStudent } from './student.interface';
 import { Student } from './student.model';
 
-// Insert a student
-const createStudentIntoDB = async (studentData: TStudent) => {
-  // Custom Static Method
-  if (await Student.isUserExists(studentData.id)) {
-    throw new Error('User already exists');
-  }
-
-  // built-in static method Class.method()
-  const result = Student.create(studentData);
-  return result;
-
-  /* 
-  // built-in instance method <Create an instance & then use the method>
-  const studentInstance = new Student(studentData);
-
-  // Custom instance method
-  if (await studentInstance.isUserExists(studentData.id)) {
-    throw new Error('User already exists');
-  }
-
-  const result = await studentInstance.save();
-  return result;
-   */
-};
-
 // Retrieve all students
 const getAllStudentsFromDB = async () => {
   const result = await Student.find();
@@ -74,7 +49,6 @@ const deleteSingleStudentFromDB = async (id: number | string) => {
 };
 
 export const StudentServices = {
-  createStudentIntoDB,
   getAllStudentsFromDB,
   getSingleStudentFromDB,
   updateSingleStudentFromDB,

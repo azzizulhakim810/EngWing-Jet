@@ -6,3 +6,10 @@ export type TUser = {
   status: 'in-progress' | 'blocked';
   isDeleted: boolean;
 };
+
+// We used TUser as Partial Type for new User
+// export type NewUser = {
+//   id: string;
+//   password: string;
+//   role: string;
+// };
