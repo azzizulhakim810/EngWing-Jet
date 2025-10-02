@@ -1,8 +1,7 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express';
-import { StudentServices } from './student.service';
-import studentValidationSchema from './student.validation';
-import sendResponse from '../../utils/sendResponse';
 import status from 'http-status';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import { StudentServices } from './student.service';
 
 /* const createStudent = async (req: Request, res: Response) => {
   try {
@@ -26,12 +25,6 @@ import status from 'http-status';
     });
   }
 }; */
-
-const catchAsync = (fn: RequestHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => next(err));
-  };
-};
 
 const getAllStudents = catchAsync(async (req, res, next) => {
   const result = await StudentServices.getAllStudentsFromDB();
