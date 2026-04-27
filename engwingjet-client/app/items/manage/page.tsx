@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ProtectedRoute } from "../../../components/protected-route";
+import { useAuth } from "../../../context/auth-context";
 
 const STORAGE_KEY = "engwingjet_custom_courses";
 
 interface CustomCourse {
   id: string;
+  uid: string;
   title: string;
   shortDescription: string;
   fullDescription: string;
@@ -19,7 +21,8 @@ interface CustomCourse {
 }
 
 export default function ManageCoursesPage() {
-  const [courses, setCourses] = useState<CustomCourse[]>(() => {
+  const { user } = useAuth();
+  const [allCourses, setAllCourses] = useState<CustomCourse[]>(() => {
     if (typeof window === "undefined") {
       return [];
     }
@@ -32,6 +35,12 @@ export default function ManageCoursesPage() {
     }
   });
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
+  const currentUserUid = user?.uid ?? "";
+
+  const courses = useMemo(
+    () => allCourses.filter((course) => course.uid === currentUserUid),
+    [allCourses, currentUserUid],
+  );
 
   const selectedCourse = useMemo(
     () => courses.find((course) => course.id === selectedCourseId) ?? null,
@@ -39,13 +48,24 @@ export default function ManageCoursesPage() {
   );
 
   function handleDelete(courseId: string) {
+    if (!currentUserUid) {
+      return;
+    }
+
+    const ownedCourse = courses.find((course) => course.id === courseId);
+    if (!ownedCourse) {
+      return;
+    }
+
     const confirmed = window.confirm("Delete this course from local storage?");
     if (!confirmed) {
       return;
     }
 
-    setCourses((prev) => {
-      const updated = prev.filter((course) => course.id !== courseId);
+    setAllCourses((prev) => {
+      const updated = prev.filter(
+        (course) => !(course.id === courseId && course.uid === currentUserUid),
+      );
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       if (selectedCourseId === courseId) {
         setSelectedCourseId(null);

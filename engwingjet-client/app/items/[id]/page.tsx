@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { courses } from "../../courses-data";
-import { ProtectedRoute } from "../../../components/protected-route";
 
 interface ItemDetailsPageProps {
   params: Promise<{
@@ -28,15 +27,14 @@ export default async function ItemDetailsPage({ params }: ItemDetailsPageProps) 
     .slice(0, 3);
 
   return (
-    <ProtectedRoute>
-      <main className="min-h-screen bg-[#F8FAFC] px-6 py-10 text-[#0F172A] lg:px-10">
-        <div className="mx-auto w-full max-w-7xl">
-          <Link
-            href="/items"
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/35 bg-white px-4 py-2 text-sm font-medium text-[#2563EB] transition hover:border-[#2563EB]"
-          >
-            ← Back to Courses
-          </Link>
+    <main className="min-h-screen bg-[#F8FAFC] px-6 py-10 text-[#0F172A] lg:px-10">
+      <div className="mx-auto w-full max-w-7xl">
+        <Link
+          href="/items"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/35 bg-white px-4 py-2 text-sm font-medium text-[#2563EB] transition hover:border-[#2563EB]"
+        >
+          ← Back to Courses
+        </Link>
 
         <section className="ewj-card overflow-hidden p-0">
           <div className="grid lg:grid-cols-2">
@@ -89,7 +87,7 @@ export default async function ItemDetailsPage({ params }: ItemDetailsPageProps) 
           </div>
         </section>
 
-          <section className="mt-12">
+        <section className="mt-12">
           <div className="mb-6 flex items-center justify-between gap-4">
             <h2 className="text-2xl font-bold sm:text-3xl">Related Courses</h2>
             <Link
@@ -127,9 +125,8 @@ export default async function ItemDetailsPage({ params }: ItemDetailsPageProps) 
               </article>
             ))}
           </div>
-          </section>
-        </div>
-      </main>
-    </ProtectedRoute>
+        </section>
+      </div>
+    </main>
   );
 }

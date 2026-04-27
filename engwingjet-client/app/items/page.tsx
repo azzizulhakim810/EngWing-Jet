@@ -3,30 +3,112 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { courses } from "../courses-data";
-import { ProtectedRoute } from "../../components/protected-route";
 import { useAuth } from "../../context/auth-context";
 import { useRouter } from "next/navigation";
 
+const STORAGE_KEY = "engwingjet_custom_courses";
+
+interface LocalStorageCourse {
+  id: string;
+  title: string;
+  shortDescription: string;
+  fullDescription?: string;
+  category: string;
+  level: string;
+  price: number;
+  image?: string;
+  duration?: string;
+  rating?: number;
+  uid?: string;
+  createdAt?: string;
+}
+
+interface DisplayCourse {
+  id: string;
+  title: string;
+  shortDescription: string;
+  category: string;
+  level: string;
+  price: number;
+  duration: string;
+  rating: number;
+  isCustom: boolean;
+}
+
 export default function ItemsPage() {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedLevel, setSelectedLevel] = useState("All");
 
+  const userAddedCourses = useMemo<LocalStorageCourse[]>(() => {
+    if (typeof window === "undefined") {
+      return [];
+    }
+
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      const parsed = stored ? (JSON.parse(stored) as LocalStorageCourse[]) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }, []);
+
+  const unifiedCourses = useMemo<DisplayCourse[]>(() => {
+    const staticCourses: DisplayCourse[] = courses.map((course) => ({
+      id: course.id,
+      title: course.title,
+      shortDescription: course.shortDescription,
+      category: course.category,
+      level: course.level,
+      price: course.price,
+      duration: course.duration,
+      rating: course.rating,
+      isCustom: false,
+    }));
+
+    const localCourses: DisplayCourse[] = userAddedCourses.map((course, index) => ({
+      id: course.id || `custom-${index + 1}`,
+      title: course.title || "Untitled Course",
+      shortDescription: course.shortDescription || "Custom course added by user.",
+      category: course.category || "General English",
+      level: course.level || "Beginner",
+      price: Number(course.price) || 0,
+      duration: course.duration || "Self-paced",
+      rating: Number(course.rating) || 5,
+      isCustom: true,
+    }));
+
+    const merged = [...staticCourses, ...localCourses];
+    const seen = new Set<string>();
+
+    return merged.map((course, index) => {
+      if (!seen.has(course.id)) {
+        seen.add(course.id);
+        return course;
+      }
+
+      const uniqueId = `${course.id}-dup-${index + 1}`;
+      seen.add(uniqueId);
+      return { ...course, id: uniqueId };
+    });
+  }, [userAddedCourses]);
+
   const categories = useMemo(
-    () => ["All", ...new Set(courses.map((course) => course.category))],
-    [],
+    () => ["All", ...new Set(unifiedCourses.map((course) => course.category))],
+    [unifiedCourses],
   );
   const levels = useMemo(
-    () => ["All", ...new Set(courses.map((course) => course.level))],
-    [],
+    () => ["All", ...new Set(unifiedCourses.map((course) => course.level))],
+    [unifiedCourses],
   );
 
   const filteredCourses = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
 
-    return courses.filter((course) => {
+    return unifiedCourses.filter((course) => {
       const matchesSearch =
         term.length === 0 ||
         course.title.toLowerCase().includes(term) ||
@@ -37,7 +119,7 @@ export default function ItemsPage() {
 
       return matchesSearch && matchesCategory && matchesLevel;
     });
-  }, [searchTerm, selectedCategory, selectedLevel]);
+  }, [searchTerm, selectedCategory, selectedLevel, unifiedCourses]);
 
   async function handleLogout() {
     await logout();
@@ -45,9 +127,8 @@ export default function ItemsPage() {
   }
 
   return (
-    <ProtectedRoute>
-      <main className="min-h-screen bg-[#F8FAFC] px-6 py-12 text-[#0F172A] lg:px-10">
-        <div className="mx-auto w-full max-w-7xl">
+    <main className="min-h-screen bg-[#F8FAFC] px-6 py-12 text-[#0F172A] lg:px-10">
+      <div className="mx-auto w-full max-w-7xl">
         <header className="mb-8">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
@@ -60,13 +141,15 @@ export default function ItemsPage() {
                 structured experience built for fluency and career growth.
               </p>
             </div>
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="rounded-full border border-[#38BDF8]/35 bg-white px-4 py-2 text-sm font-semibold text-[#2563EB] transition hover:border-[#2563EB]"
-            >
-              Logout
-            </button>
+            {user ? (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="rounded-full border border-[#38BDF8]/35 bg-white px-4 py-2 text-sm font-semibold text-[#2563EB] transition hover:border-[#2563EB]"
+              >
+                Logout
+              </button>
+            ) : null}
           </div>
           <div className="mt-4">
             <div className="flex flex-wrap gap-2">
@@ -132,7 +215,7 @@ export default function ItemsPage() {
         </section>
 
         <div className="mb-5 text-sm font-medium text-slate-600">
-          Showing {filteredCourses.length} of {courses.length} courses
+          Showing {filteredCourses.length} of {unifiedCourses.length} courses
         </div>
 
         <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -143,6 +226,11 @@ export default function ItemsPage() {
                   {course.category}
                 </p>
                 <p className="mt-3 text-sm font-semibold text-[#2563EB]">{course.level}</p>
+                {course.isCustom ? (
+                  <p className="mt-2 inline-flex rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-[#2563EB]">
+                    User Added
+                  </p>
+                ) : null}
               </div>
 
               <h2 className="text-xl font-semibold text-[#0F172A]">{course.title}</h2>
@@ -162,17 +250,25 @@ export default function ItemsPage() {
                 </p>
               </div>
 
-              <Link
-                href={`/items/${course.id}`}
-                className="mt-6 inline-flex items-center justify-center rounded-full bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1D4ED8]"
-              >
-                View Details
-              </Link>
+              {course.isCustom ? (
+                <button
+                  type="button"
+                  className="mt-6 inline-flex items-center justify-center rounded-full border border-[#38BDF8]/35 bg-white px-5 py-2.5 text-sm font-semibold text-[#2563EB]"
+                >
+                  Added Locally
+                </button>
+              ) : (
+                <Link
+                  href={`/items/${course.id}`}
+                  className="mt-6 inline-flex items-center justify-center rounded-full bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1D4ED8]"
+                >
+                  View Details
+                </Link>
+              )}
             </article>
           ))}
         </section>
-        </div>
-      </main>
-    </ProtectedRoute>
+      </div>
+    </main>
   );
 }

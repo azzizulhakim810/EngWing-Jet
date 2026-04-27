@@ -10,6 +10,13 @@ export function Navbar() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const routes = [
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/about" },
+    { label: "Our Teachers", href: "/teachers" },
+    { label: "All Courses", href: "/items" },
+    { label: "Contact", href: "/contact" },
+  ];
 
   async function handleLogout() {
     await logout();
@@ -18,14 +25,26 @@ export function Navbar() {
     router.replace("/login");
   }
 
-  const userName = user?.displayName || user?.email || "Learner";
+  const userName = user?.displayName || user?.email?.split("@")[0] || "Learner";
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#38BDF8]/20 bg-white/90 backdrop-blur-md">
-      <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+      <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 lg:px-10 lg:py-4.5">
         <Link href="/" className="text-xl font-bold tracking-tight text-[#2563EB]">
           EngWingJet
         </Link>
+
+        <div className="hidden items-center gap-7 text-sm font-semibold text-slate-700 lg:flex">
+          {routes.map((route) => (
+            <Link
+              key={route.label}
+              href={route.href}
+              className="transition hover:text-[#2563EB] hover:drop-shadow-[0_0_8px_rgba(37,99,235,0.25)]"
+            >
+              {route.label}
+            </Link>
+          ))}
+        </div>
 
         <div className="hidden items-center gap-3 md:flex">
           {!user ? (
@@ -54,13 +73,6 @@ export function Navbar() {
               </button>
               {dropdownOpen ? (
                 <div className="absolute right-0 mt-2 w-52 rounded-2xl border border-slate-100 bg-white p-2 shadow-[0_18px_38px_rgba(15,23,42,0.14)]">
-                  <Link
-                    href="/profile"
-                    className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-[#EFF6FF] hover:text-[#2563EB]"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Profile
-                  </Link>
                   <Link
                     href="/items/add"
                     className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-[#EFF6FF] hover:text-[#2563EB]"
@@ -98,8 +110,18 @@ export function Navbar() {
       </nav>
 
       {mobileOpen ? (
-        <div className="border-t border-[#38BDF8]/20 bg-white px-6 py-4 md:hidden">
+        <div className="border-t border-[#38BDF8]/20 bg-white px-6 py-4 shadow-[0_16px_32px_rgba(15,23,42,0.08)] md:hidden">
           <div className="flex flex-col gap-2">
+            {routes.map((route) => (
+              <Link
+                key={route.label}
+                href={route.href}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-xl px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-[#EFF6FF] hover:text-[#2563EB]"
+              >
+                {route.label}
+              </Link>
+            ))}
             {!user ? (
               <>
                 <Link
@@ -119,14 +141,7 @@ export function Navbar() {
               </>
             ) : (
               <>
-                <p className="px-2 text-sm font-semibold text-slate-700">{userName}</p>
-                <Link
-                  href="/profile"
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-xl px-4 py-2 text-sm font-medium text-slate-700 hover:bg-[#EFF6FF]"
-                >
-                  Profile
-                </Link>
+                <p className="px-2 pt-2 text-sm font-semibold text-slate-700">{userName}</p>
                 <Link
                   href="/items/add"
                   onClick={() => setMobileOpen(false)}

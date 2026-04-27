@@ -1,11 +1,6 @@
-export default function Home() {
-  const navLinks = [
-    { label: "Features", href: "#features" },
-    { label: "Courses", href: "#courses" },
-    { label: "Benefits", href: "#benefits" },
-    { label: "Testimonials", href: "#testimonials" },
-  ];
+import Link from "next/link";
 
+export default function Home() {
   const features = [
     {
       title: "Live Speaking Labs",
@@ -60,31 +55,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
-      <header className="sticky top-0 z-50 border-b border-[#38BDF8]/20 bg-white/90 backdrop-blur-md">
-        <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-          <a href="#" className="text-xl font-bold tracking-tight text-[#2563EB]">
-            EngWingJet
-          </a>
-          <div className="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="transition hover:text-[#2563EB]"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-          <a
-            href="#cta"
-            className="rounded-full bg-[#2563EB] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-[#2563EB]/20 transition hover:bg-[#1D4ED8]"
-          >
-            Start Free
-          </a>
-        </nav>
-      </header>
-
       <main>
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#38BDF8_0%,transparent_56%)]" />
@@ -271,6 +241,86 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <section className="border-t border-[#38BDF8]/20 bg-white">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-6 py-14 md:grid-cols-2 lg:grid-cols-3 lg:px-10">
+          <div>
+            <p className="text-2xl font-bold tracking-tight text-[#2563EB]">EngWingJet</p>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-slate-600">
+              Empowering learners with premium English education for confident speaking,
+              academic excellence, and global career success.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2563EB]">
+              Useful Links
+            </h3>
+            <div className="mt-4 grid gap-2 text-sm text-slate-600">
+              <Link href="/" className="transition hover:text-[#2563EB]">
+                Home
+              </Link>
+              <Link href="/about" className="transition hover:text-[#2563EB]">
+                About
+              </Link>
+              <Link href="/teachers" className="transition hover:text-[#2563EB]">
+                Teachers
+              </Link>
+              <Link href="/items" className="transition hover:text-[#2563EB]">
+                Courses
+              </Link>
+              <Link href="/contact" className="transition hover:text-[#2563EB]">
+                Contact
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-[#2563EB]">
+              Newsletter
+            </h3>
+            <p className="mt-3 text-sm text-slate-600">
+              Get learning tips and course updates straight to your inbox.
+            </p>
+            <form className="mt-4 flex flex-col gap-2 sm:flex-row">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full rounded-xl border border-[#38BDF8]/35 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
+              />
+              <button
+                type="button"
+                className="rounded-xl bg-[#2563EB] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1D4ED8]"
+              >
+                Subscribe
+              </button>
+            </form>
+            <div className="mt-4 flex items-center gap-2">
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#38BDF8]/30 bg-[#EFF6FF] text-xs font-semibold text-[#2563EB] transition hover:border-[#2563EB]"
+              >
+                Fb
+              </a>
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#38BDF8]/30 bg-[#EFF6FF] text-xs font-semibold text-[#2563EB] transition hover:border-[#2563EB]"
+              >
+                In
+              </a>
+              <a
+                href="#"
+                aria-label="YouTube"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#38BDF8]/30 bg-[#EFF6FF] text-xs font-semibold text-[#2563EB] transition hover:border-[#2563EB]"
+              >
+                Yt
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <footer className="border-t border-[#38BDF8]/20 bg-white">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between lg:px-10">

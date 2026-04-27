@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProtectedRoute } from "../../../components/protected-route";
+import { useAuth } from "../../../context/auth-context";
 
 const STORAGE_KEY = "engwingjet_custom_courses";
 
@@ -29,6 +30,7 @@ const initialState: NewCourseForm = {
 
 export default function AddCoursePage() {
   const router = useRouter();
+  const { user } = useAuth();
   const [form, setForm] = useState<NewCourseForm>(initialState);
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState("");
@@ -55,6 +57,11 @@ export default function AddCoursePage() {
     setMessage("");
     setError("");
 
+    if (!user?.uid) {
+      setError("You must be logged in to add a course.");
+      return;
+    }
+
     if (!isValidImageUrl(form.image)) {
       setError("Please enter a valid Image URL (http/https).");
       return;
@@ -74,6 +81,7 @@ export default function AddCoursePage() {
         category: form.category,
         level: form.level,
         image: form.image.trim(),
+        uid: user.uid,
         createdAt: new Date().toISOString(),
       };
 
