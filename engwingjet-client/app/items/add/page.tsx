@@ -36,7 +36,10 @@ export default function AddCoursePage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  function updateField<K extends keyof NewCourseForm>(field: K, value: NewCourseForm[K]) {
+  function updateField<K extends keyof NewCourseForm>(
+    field: K,
+    value: NewCourseForm[K],
+  ) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -73,7 +76,7 @@ export default function AddCoursePage() {
       const parsed: unknown[] = stored ? JSON.parse(stored) : [];
 
       const newCourse = {
-        id: `custom-${Date.now()}`,
+        id: `ewj-${Date.now()}`,
         title: form.title.trim(),
         shortDescription: form.shortDescription.trim(),
         fullDescription: form.fullDescription.trim(),
@@ -120,7 +123,8 @@ export default function AddCoursePage() {
 
           <section className="ewj-card p-6 sm:p-8">
             <p className="mb-6 text-sm text-slate-600">
-              Create a new course entry. This will be stored in your browser local storage.
+              Create a new course entry. This will be stored in your browser
+              local storage.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -141,7 +145,9 @@ export default function AddCoursePage() {
                   type="text"
                   required
                   value={form.shortDescription}
-                  onChange={(event) => updateField("shortDescription", event.target.value)}
+                  onChange={(event) =>
+                    updateField("shortDescription", event.target.value)
+                  }
                   className="mt-2 w-full rounded-xl border border-[#38BDF8]/35 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
                 />
               </label>
@@ -152,7 +158,9 @@ export default function AddCoursePage() {
                   required
                   rows={5}
                   value={form.fullDescription}
-                  onChange={(event) => updateField("fullDescription", event.target.value)}
+                  onChange={(event) =>
+                    updateField("fullDescription", event.target.value)
+                  }
                   className="mt-2 w-full rounded-xl border border-[#38BDF8]/35 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
                 />
               </label>
@@ -166,7 +174,9 @@ export default function AddCoursePage() {
                     min={0}
                     step="0.01"
                     value={form.price}
-                    onChange={(event) => updateField("price", event.target.value)}
+                    onChange={(event) =>
+                      updateField("price", event.target.value)
+                    }
                     className="mt-2 w-full rounded-xl border border-[#38BDF8]/35 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
                   />
                 </label>
@@ -175,7 +185,9 @@ export default function AddCoursePage() {
                   Category
                   <select
                     value={form.category}
-                    onChange={(event) => updateField("category", event.target.value)}
+                    onChange={(event) =>
+                      updateField("category", event.target.value)
+                    }
                     className="mt-2 w-full rounded-xl border border-[#38BDF8]/35 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
                   >
                     <option>General English</option>
@@ -190,7 +202,9 @@ export default function AddCoursePage() {
                   Level
                   <select
                     value={form.level}
-                    onChange={(event) => updateField("level", event.target.value)}
+                    onChange={(event) =>
+                      updateField("level", event.target.value)
+                    }
                     className="mt-2 w-full rounded-xl border border-[#38BDF8]/35 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
                   >
                     <option>Beginner</option>
@@ -212,7 +226,9 @@ export default function AddCoursePage() {
               </label>
 
               {error ? <p className="text-sm text-red-600">{error}</p> : null}
-              {message ? <p className="text-sm text-emerald-700">{message}</p> : null}
+              {message ? (
+                <p className="text-sm text-emerald-700">{message}</p>
+              ) : null}
 
               <button
                 type="submit"

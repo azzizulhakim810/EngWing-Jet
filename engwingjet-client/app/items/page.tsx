@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import Link from "next/link";
-import { courses } from "../courses-data";
-import { useAuth } from "../../context/auth-context";
 import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
+import { useAuth } from "../../context/auth-context";
+import { courses } from "../courses-data";
 
 const STORAGE_KEY = "engwingjet_custom_courses";
 
@@ -69,17 +69,20 @@ export default function ItemsPage() {
       isCustom: false,
     }));
 
-    const localCourses: DisplayCourse[] = userAddedCourses.map((course, index) => ({
-      id: course.id || `custom-${index + 1}`,
-      title: course.title || "Untitled Course",
-      shortDescription: course.shortDescription || "Custom course added by user.",
-      category: course.category || "General English",
-      level: course.level || "Beginner",
-      price: Number(course.price) || 0,
-      duration: course.duration || "Self-paced",
-      rating: Number(course.rating) || 5,
-      isCustom: true,
-    }));
+    const localCourses: DisplayCourse[] = userAddedCourses.map(
+      (course, index) => ({
+        id: course.id || `ewj-${index + 1}`,
+        title: course.title || "Untitled Course",
+        shortDescription:
+          course.shortDescription || "Custom course added by user.",
+        category: course.category || "General English",
+        level: course.level || "Beginner",
+        price: Number(course.price) || 0,
+        duration: course.duration || "Self-paced",
+        rating: Number(course.rating) || 5,
+        isCustom: true,
+      }),
+    );
 
     const merged = [...staticCourses, ...localCourses];
     const seen = new Set<string>();
@@ -115,7 +118,8 @@ export default function ItemsPage() {
         course.shortDescription.toLowerCase().includes(term);
       const matchesCategory =
         selectedCategory === "All" || course.category === selectedCategory;
-      const matchesLevel = selectedLevel === "All" || course.level === selectedLevel;
+      const matchesLevel =
+        selectedLevel === "All" || course.level === selectedLevel;
 
       return matchesSearch && matchesCategory && matchesLevel;
     });
@@ -135,10 +139,13 @@ export default function ItemsPage() {
               <p className="text-sm font-semibold uppercase tracking-wide text-[#2563EB]">
                 EngWingJet Items
               </p>
-              <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Explore English Courses</h1>
+              <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
+                Explore English Courses
+              </h1>
               <p className="mt-3 max-w-2xl text-slate-600">
-                Find the right course using smart search and filters. Learn with a premium,
-                structured experience built for fluency and career growth.
+                Find the right course using smart search and filters. Learn with
+                a premium, structured experience built for fluency and career
+                growth.
               </p>
             </div>
             {user ? (
@@ -220,12 +227,17 @@ export default function ItemsPage() {
 
         <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {filteredCourses.map((course) => (
-            <article key={course.id} className="ewj-card flex h-full flex-col p-6">
+            <article
+              key={course.id}
+              className="ewj-card flex h-full flex-col p-6"
+            >
               <div className="mb-4 h-40 rounded-xl bg-gradient-to-br from-[#DBEAFE] to-[#E0F2FE] p-4">
                 <p className="inline-flex rounded-full bg-[#FACC15] px-2.5 py-1 text-xs font-semibold text-[#0F172A]">
                   {course.category}
                 </p>
-                <p className="mt-3 text-sm font-semibold text-[#2563EB]">{course.level}</p>
+                <p className="mt-3 text-sm font-semibold text-[#2563EB]">
+                  {course.level}
+                </p>
                 {course.isCustom ? (
                   <p className="mt-2 inline-flex rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-[#2563EB]">
                     User Added
@@ -233,38 +245,40 @@ export default function ItemsPage() {
                 ) : null}
               </div>
 
-              <h2 className="text-xl font-semibold text-[#0F172A]">{course.title}</h2>
+              <h2 className="text-xl font-semibold text-[#0F172A]">
+                {course.title}
+              </h2>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">
                 {course.shortDescription}
               </p>
 
               <div className="mt-4 space-y-1 text-sm text-slate-600">
                 <p>
-                  Duration: <span className="font-medium text-slate-800">{course.duration}</span>
+                  Duration:{" "}
+                  <span className="font-medium text-slate-800">
+                    {course.duration}
+                  </span>
                 </p>
                 <p>
-                  Rating: <span className="font-medium text-slate-800">{course.rating} / 5</span>
+                  Rating:{" "}
+                  <span className="font-medium text-slate-800">
+                    {course.rating} / 5
+                  </span>
                 </p>
                 <p>
-                  Price: <span className="font-medium text-slate-800">${course.price}</span>
+                  Price:{" "}
+                  <span className="font-medium text-slate-800">
+                    ${course.price}
+                  </span>
                 </p>
               </div>
 
-              {course.isCustom ? (
-                <button
-                  type="button"
-                  className="mt-6 inline-flex items-center justify-center rounded-full border border-[#38BDF8]/35 bg-white px-5 py-2.5 text-sm font-semibold text-[#2563EB]"
-                >
-                  Added Locally
-                </button>
-              ) : (
-                <Link
-                  href={`/items/${course.id}`}
-                  className="mt-6 inline-flex items-center justify-center rounded-full bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1D4ED8]"
-                >
-                  View Details
-                </Link>
-              )}
+              <Link
+                href={`/items/${course.id}`}
+                className="mt-6 inline-flex items-center justify-center rounded-full bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1D4ED8]"
+              >
+                View Details
+              </Link>
             </article>
           ))}
         </section>
