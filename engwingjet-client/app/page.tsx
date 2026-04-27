@@ -59,10 +59,10 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-sky-50 text-slate-900">
-      <header className="sticky top-0 z-50 border-b border-sky-100/80 bg-white/85 backdrop-blur-md">
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <header className="sticky top-0 z-50 border-b border-[#38BDF8]/20 bg-white/90 backdrop-blur-md">
         <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-          <a href="#" className="text-xl font-bold tracking-tight text-sky-700">
+          <a href="#" className="text-xl font-bold tracking-tight text-[#2563EB]">
             EngWingJet
           </a>
           <div className="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex">
@@ -70,7 +70,7 @@ export default function Home() {
               <a
                 key={link.label}
                 href={link.href}
-                className="transition hover:text-sky-700"
+                className="transition hover:text-[#2563EB]"
               >
                 {link.label}
               </a>
@@ -78,7 +78,7 @@ export default function Home() {
           </div>
           <a
             href="#cta"
-            className="rounded-full bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700"
+            className="rounded-full bg-[#2563EB] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-[#2563EB]/20 transition hover:bg-[#1D4ED8]"
           >
             Start Free
           </a>
@@ -87,13 +87,13 @@ export default function Home() {
 
       <main>
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#7dd3fc_0%,transparent_55%)]" />
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,#38BDF8_0%,transparent_56%)]" />
           <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-6 py-20 lg:grid-cols-2 lg:px-10 lg:py-28">
             <div className="space-y-7">
-              <p className="inline-flex rounded-full border border-sky-200 bg-white px-4 py-1 text-sm font-medium text-sky-700">
+              <p className="inline-flex rounded-full border border-[#38BDF8]/35 bg-white px-4 py-1 text-sm font-medium text-[#2563EB]">
                 Trusted by 18,000+ learners worldwide
               </p>
-              <h1 className="text-4xl font-bold leading-tight tracking-tight text-slate-900 sm:text-5xl">
+              <h1 className="text-4xl font-bold leading-tight tracking-tight text-[#0F172A] sm:text-5xl">
                 Speak English with Confidence, Clarity, and Career Impact
               </h1>
               <p className="max-w-xl text-lg leading-relaxed text-slate-600">
@@ -104,30 +104,30 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href="#cta"
-                  className="rounded-full bg-sky-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-200 transition hover:bg-sky-700"
+                  className="rounded-full bg-[#2563EB] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-[#2563EB]/20 transition hover:bg-[#1D4ED8]"
                 >
                   Book Free Trial
                 </a>
                 <a
                   href="#courses"
-                  className="rounded-full border border-sky-200 bg-white px-7 py-3 text-sm font-semibold text-slate-700 transition hover:border-sky-300 hover:text-sky-700"
+                  className="rounded-full border border-[#38BDF8]/40 bg-white px-7 py-3 text-sm font-semibold text-slate-700 transition hover:border-[#38BDF8] hover:text-[#2563EB]"
                 >
                   Explore Courses
                 </a>
               </div>
             </div>
-            <div className="rounded-3xl border border-sky-100 bg-white p-8 shadow-xl shadow-sky-100">
+            <div className="ewj-card rounded-3xl p-8">
               <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-2xl bg-sky-100 p-5">
-                  <p className="text-3xl font-bold text-sky-700">95%</p>
+                <div className="rounded-2xl bg-[#EFF6FF] p-5">
+                  <p className="text-3xl font-bold text-[#2563EB]">95%</p>
                   <p className="mt-1 text-sm text-slate-600">Completion rate</p>
                 </div>
-                <div className="rounded-2xl bg-blue-100 p-5">
-                  <p className="text-3xl font-bold text-blue-700">4.9/5</p>
+                <div className="rounded-2xl bg-[#E0F2FE] p-5">
+                  <p className="text-3xl font-bold text-[#2563EB]">4.9/5</p>
                   <p className="mt-1 text-sm text-slate-600">Learner rating</p>
                 </div>
                 <div className="col-span-2 rounded-2xl bg-slate-900 p-5">
-                  <p className="text-sm font-medium text-sky-200">Weekly growth</p>
+                  <p className="text-sm font-medium text-[#38BDF8]">Weekly growth</p>
                   <p className="mt-2 text-2xl font-semibold text-white">
                     +32% speaking confidence in first 30 days
                   </p>
@@ -137,12 +137,12 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="features" className="mx-auto w-full max-w-7xl px-6 py-18 lg:px-10">
+        <section id="features" className="mx-auto w-full max-w-7xl px-6 py-20 lg:px-10">
           <div className="mb-10 flex flex-col gap-4">
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">
+            <p className="text-sm font-semibold uppercase tracking-wide text-[#2563EB]">
               Features
             </p>
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-[#0F172A] sm:text-4xl">
               Everything You Need to Learn Faster
             </h2>
           </div>
@@ -150,23 +150,23 @@ export default function Home() {
             {features.map((item) => (
               <article
                 key={item.title}
-                className="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                className="ewj-card p-6"
               >
-                <h3 className="text-xl font-semibold text-slate-900">{item.title}</h3>
+                <h3 className="text-xl font-semibold text-[#0F172A]">{item.title}</h3>
                 <p className="mt-3 leading-relaxed text-slate-600">{item.description}</p>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="courses" className="bg-white/60 py-18">
+        <section id="courses" className="bg-white/70 py-20">
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
             <div className="mb-10 flex items-end justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">
+                <p className="text-sm font-semibold uppercase tracking-wide text-[#2563EB]">
                   Popular Courses
                 </p>
-                <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#0F172A] sm:text-4xl">
                   Pick Your Learning Track
                 </h2>
               </div>
@@ -175,9 +175,9 @@ export default function Home() {
               {courses.map((course) => (
                 <article
                   key={course.name}
-                  className="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm"
+                  className="ewj-card p-6"
                 >
-                  <h3 className="text-xl font-semibold text-slate-900">{course.name}</h3>
+                  <h3 className="text-xl font-semibold text-[#0F172A]">{course.name}</h3>
                   <p className="mt-4 text-sm text-slate-600">
                     Level: <span className="font-medium text-slate-800">{course.level}</span>
                   </p>
@@ -187,7 +187,7 @@ export default function Home() {
                   </p>
                   <a
                     href="#cta"
-                    className="mt-6 inline-block rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-700"
+                    className="mt-6 inline-block rounded-full bg-[#2563EB] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1D4ED8]"
                   >
                     Enroll Now
                   </a>
@@ -197,19 +197,19 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="benefits" className="mx-auto w-full max-w-7xl px-6 py-18 lg:px-10">
+        <section id="benefits" className="mx-auto w-full max-w-7xl px-6 py-20 lg:px-10">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">
+              <p className="text-sm font-semibold uppercase tracking-wide text-[#2563EB]">
                 Learning Benefits
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#0F172A] sm:text-4xl">
                 Built to Deliver Real-World Progress
               </h2>
               <ul className="mt-6 space-y-4">
                 {benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3 text-slate-700">
-                    <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">
+                    <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E0F2FE] text-sm font-bold text-[#2563EB]">
                       ✓
                     </span>
                     <span>{benefit}</span>
@@ -217,9 +217,9 @@ export default function Home() {
                 ))}
               </ul>
             </div>
-            <div className="rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-100 to-blue-100 p-8 shadow-lg shadow-sky-100">
-              <p className="text-sm font-medium text-sky-700">EngWingJet Advantage</p>
-              <p className="mt-3 text-2xl font-semibold leading-snug text-slate-900">
+            <div className="rounded-3xl border border-[#38BDF8]/30 bg-gradient-to-br from-[#DBEAFE] to-[#E0F2FE] p-8 shadow-[0_16px_36px_rgba(56,189,248,0.16)]">
+              <p className="text-sm font-medium text-[#2563EB]">EngWingJet Advantage</p>
+              <p className="mt-3 text-2xl font-semibold leading-snug text-[#0F172A]">
                 A premium, mentor-backed platform designed for modern learners
                 aiming for global opportunities.
               </p>
@@ -227,22 +227,22 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="testimonials" className="bg-white/60 py-18">
+        <section id="testimonials" className="bg-white/70 py-20">
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">
+            <p className="text-sm font-semibold uppercase tracking-wide text-[#2563EB]">
               Testimonials
             </p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#0F172A] sm:text-4xl">
               Learners Love Their Results
             </h2>
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
               {testimonials.map((item) => (
                 <article
                   key={item.name}
-                  className="rounded-2xl border border-sky-100 bg-white p-6 shadow-sm"
+                  className="ewj-card p-6"
                 >
                   <p className="leading-relaxed text-slate-600">“{item.quote}”</p>
-                  <p className="mt-6 font-semibold text-slate-900">{item.name}</p>
+                  <p className="mt-6 font-semibold text-[#0F172A]">{item.name}</p>
                   <p className="text-sm text-slate-500">{item.role}</p>
                 </article>
               ))}
@@ -252,7 +252,7 @@ export default function Home() {
 
         <section id="cta" className="mx-auto w-full max-w-7xl px-6 py-20 lg:px-10">
           <div className="rounded-3xl bg-slate-900 px-8 py-12 text-center shadow-xl shadow-slate-300 sm:px-12">
-            <p className="text-sm font-medium uppercase tracking-wide text-sky-300">
+            <p className="text-sm font-medium uppercase tracking-wide text-[#FACC15]">
               Ready to Begin?
             </p>
             <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
@@ -264,7 +264,7 @@ export default function Home() {
             </p>
             <a
               href="#"
-              className="mt-8 inline-block rounded-full bg-sky-500 px-8 py-3 text-sm font-semibold text-white transition hover:bg-sky-400"
+              className="mt-8 inline-block rounded-full bg-[#2563EB] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#1D4ED8]"
             >
               Claim Your Free Trial
             </a>
@@ -272,20 +272,20 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-sky-100 bg-white">
+      <footer className="border-t border-[#38BDF8]/20 bg-white">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-8 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between lg:px-10">
           <p>© {new Date().getFullYear()} EngWingJet. All rights reserved.</p>
           <div className="flex items-center gap-5">
-            <a href="#" className="transition hover:text-sky-700">
+            <a href="#" className="transition hover:text-[#2563EB]">
               Terms
             </a>
             <a
               href="#"
-              className="transition hover:text-sky-700"
+              className="transition hover:text-[#2563EB]"
             >
               Privacy
             </a>
-            <a href="#" className="transition hover:text-sky-700">
+            <a href="#" className="transition hover:text-[#2563EB]">
               Contact
             </a>
           </div>
