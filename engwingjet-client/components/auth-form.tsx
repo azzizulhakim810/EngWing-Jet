@@ -1,18 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FormEvent, useMemo, useState } from "react";
 import { useAuth } from "../context/auth-context";
 
 interface AuthFormProps {
   mode: "login" | "register";
+  next?: string;
 }
 
-export function AuthForm({ mode }: AuthFormProps) {
+export function AuthForm({ mode, next }: AuthFormProps) {
   const { login, register, loginWithGoogle } = useAuth();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [touched, setTouched] = useState({
@@ -53,7 +53,6 @@ export function AuthForm({ mode }: AuthFormProps) {
     !email.trim() || !password || Boolean(emailError) || Boolean(passwordError);
 
   function redirectAfterAuth() {
-    const next = searchParams.get("next");
     router.replace(next || "/items");
   }
 
@@ -106,8 +105,8 @@ export function AuthForm({ mode }: AuthFormProps) {
             Learn English with confidence and career impact
           </h2>
           <p className="mt-4 text-sm text-blue-50/95">
-            Premium educational experience with structured lessons, mentor support,
-            and practical speaking growth.
+            Premium educational experience with structured lessons, mentor
+            support, and practical speaking growth.
           </p>
           <div className="mt-8 space-y-3 text-sm">
             <p>• Mentor-backed curriculum</p>
@@ -131,7 +130,11 @@ export function AuthForm({ mode }: AuthFormProps) {
                 required
                 className="mt-2 w-full rounded-xl border border-[#38BDF8]/35 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
               />
-              {emailError ? <span className="mt-1 block text-xs text-red-600">{emailError}</span> : null}
+              {emailError ? (
+                <span className="mt-1 block text-xs text-red-600">
+                  {emailError}
+                </span>
+              ) : null}
             </label>
 
             <label className="block text-sm font-medium text-slate-700">
@@ -140,13 +143,17 @@ export function AuthForm({ mode }: AuthFormProps) {
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
+                onBlur={() =>
+                  setTouched((prev) => ({ ...prev, password: true }))
+                }
                 required
                 minLength={6}
                 className="mt-2 w-full rounded-xl border border-[#38BDF8]/35 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
               />
               {passwordError ? (
-                <span className="mt-1 block text-xs text-red-600">{passwordError}</span>
+                <span className="mt-1 block text-xs text-red-600">
+                  {passwordError}
+                </span>
               ) : null}
             </label>
 
