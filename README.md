@@ -72,3 +72,100 @@ EngWingJet is a modern English learning platform built with Next.js (App Router)
 ```bash
 git clone https://github.com/azzizulhakim810/EngWing-Jet.git
 ```
+
+### Navigate to Project Folder
+
+```bash
+cd engwingjet
+```
+
+### Install Required Dependencies
+
+```bash
+npm install
+```
+
+### Firebase Environment Setup
+
+Create a .env.local file in the root directory:
+
+```bash
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
+
+### Start Development Server
+
+```bash
+npm run dev
+```
+
+### Open in Browser
+
+```bash
+http://localhost:3000
+```
+
+---
+
+## Route Summary
+
+### Public Routes
+
+- `/` → Landing Page
+- `/about` → About Us Page
+- `/teachers` → Our Teachers Page
+- `/items` → All Courses Page
+- `/items/[id]` → Dynamic Course Details Page
+- `/contact` → Contact Page
+- `/login` → User Login Page
+- `/register` → User Registration Page
+
+### Protected Routes
+
+- `/items/add` → Add New Course Page (Authenticated Users Only)
+- `/items/manage` → Manage User Courses Page (Authenticated Users Only)
+
+---
+
+## User Workflow
+
+- User visits landing page
+- Browses courses publicly
+- Registers or logs in
+- Adds personal courses
+- Courses saved with Firebase UID ownership
+- User manages only their own added courses
+- Public users can browse all available courses
+
+---
+
+## Future Enhancements
+
+- Full backend integration
+- Database storage
+- Admin dashboard
+- Course enrollment system
+- Video-based lessons
+- User progress tracking
+- Certificate generation
+- Payment gateway
+- Advanced analytics
+
+---
+
+## Live Demo
+
+Vercel Deployment Link:
+[https://eng-wing-jet.vercel.app]
+
+---
+
+## GitHub Repository
+
+GitHub Repository Link:
+[https://github.com/azzizulhakim810/EngWing-Jet.git]
