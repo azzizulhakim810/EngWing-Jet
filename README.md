@@ -161,11 +161,11 @@ http://localhost:3000
 ## Live Demo
 
 Vercel Deployment Link:
-[https://eng-wing-jet.vercel.app]
+https://eng-wing-jet.vercel.app
 
 ---
 
 ## GitHub Repository
 
 GitHub Repository Link:
-[https://github.com/azzizulhakim810/EngWing-Jet.git]
+https://github.com/azzizulhakim810/EngWing-Jet.git
